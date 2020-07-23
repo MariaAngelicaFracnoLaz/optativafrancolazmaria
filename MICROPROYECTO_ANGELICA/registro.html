@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet"  href="css/estilo2.css">
+    
+
+    <title>FORMULARIO DE REGISTRARSE</title>
+
+    <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-database.js"></script>
+    <script> //*Conexion a la base de datos *//
+    var firebaseConfig = {
+    apiKey: "AIzaSyBl4IYip-4pvQUhb46Km_LdYLv1PLS-Ot8",
+    authDomain: "lolol-24fab.firebaseapp.com",
+    databaseURL: "https://lolol-24fab.firebaseio.com",
+    projectId: "lolol-24fab",
+    storageBucket: "lolol-24fab.appspot.com",
+    messagingSenderId: "266931699628",
+    appId: "1:266931699628:web:f10b7232398b448e"
+  };
+  firebase.initializeApp(firebaseConfig);
+        var database = firebase.database();
+
+    window.addEventListener('load',function(){
+
+        let cedula= document.querySelector('#txtcedula');
+        let nombres= document.querySelector('#txtnombres');
+        let apellidos= document.querySelector('#txtapellidos');
+        let edad= document.querySelector('#txtedad');
+        let actividad= document.querySelector('#txtactividad');
+        let curso= document.querySelector('#txtcurso');
+        let horario= document.querySelector('#txthorario');
+        let correo= document.querySelector('#txtcorreo');
+        let contraseña= document.querySelector('#txtcontraseña');
+        let listado= document.querySelector('#listado');
+
+        document.querySelector('#btnRegistrar').addEventListener('click',function(){
+            alert('registro guardado!!!')
+            firebase.database().ref('usuario/'+ cedula.value ).set({
+                cedula: cedula.value,
+                nombres: nombres.value,
+                apellidos: apellidos.value,
+                edad: edad.value,
+                actividad: actividad.value,
+                curso: curso.value,
+                horario: horario.value,
+                correo: correo.value,
+                contraseña: contraseña.value
+            })
+        });
+        
+        
+                document.querySelectorAll('.accion').forEach(elemento=>{
+                    elemento.addEventListener('click',function(){
+                        accion(elemento.innerHTML, elemento.value)
+                    })
+                });
+            
+        
+        function accion(tipo, valor)
+        {
+            if (tipo=='Eliminar')
+            {
+                firebase.database().ref('/usuario/'+valor).remove().then(p=>{
+                    print('registro rechazado') 
+                });
+            }
+            else
+            {
+                firebase.database().ref('/usuario/'+valor).once('value',function(resultadoi){
+                    let objetoRespuesta= resultadoi.val()
+                    cedula.value=objetoRespuesta.cedula;
+                    nombres.value=objetoRespuesta.nombres;
+                    apellidos.value=objetoRespuesta.apellidos;
+                    edad.value=objetoRespuesta.edad;
+                    curso.value=objetoRespuesta.curso;
+                    actividad.value=objetoRespuesta.actividad;
+                    horario.value=objetoRespuesta.horario;
+                    correo.value=objetoRespuesta.correo;
+                    contraseña.value=objetoRespuesta.contraseña;
+                })
+            }
+        }
+    });
+    </script>
+
+
+    
+            
+</head>
+
+<body>
+
+    <nav class="menu">
+            
+        <ul>
+            <li><a href="Apoyoniños.html">Inicio</a></li>
+            <li><a href="acerca.html">Acerca de</a></li>
+            <li><a href="cursos.html">Cursos</a></li>
+            <li><a href="actividades.html">Actividad</a></li>
+            <li><a href="consulta.html">Consulta</a></li>
+            <li><a href="inisiodesesion.html">Inicio Sesion</a></li>
+            
+        </ul>
+
+    </nav>
+    
+    <form class="form-register">
+        <h4>Formulario de registro</h4>
+        
+                
+                        <input type="text" value="" id="txtcedula" placeholder="Ingrese su numero de cedula" class="input-48" required>  
+                        <input type="text" value="" id="txtnombres" placeholder="Ingrese sus nombres" class="input-48" required>
+                        <input type="text" value="" id="txtapellidos" placeholder="Ingrese sus apellidos" class="input-48" required>
+                        <input type="text" value="" id="txtedad" placeholder="Ingrese su edad" class="input-48" required>
+                        <input type="text" value="" id="txtcurso" placeholder="Ingrese el curso que desea" class= "input-48" required>
+                        <input type="text" value="" id="txtactividad" placeholder="Ingrese la actividad que desea" class="input-48" required>
+                        <input type="text" value="" id="txthorario" placeholder="Ingrese su horario" class="input-48" required>
+                        <input type="text" value="" id="txtcorreo" placeholder="Ingrese su correo" class="input-48" required>
+                        <input type="password" value="" id="txtcontraseña" placeholder="Ingrese su contraseña" class="input-48" required>
+                
+                <p>
+                    <div class="container"> 
+                        <p>Estoy de acuerdo con <a href="">Terminos y condiciones</a></p>                      
+                        <button id="btnRegistrar" type="button" class="btn">Registrar</button>
+                        
+                        <p><a href="inisiodesesion.html">¿Ya tengo cuenta?</a></p>
+                </div>
+                </p> 
+
+        
+    
+        
+        </form>
+    
+</body>
+
+
+</html>
+  

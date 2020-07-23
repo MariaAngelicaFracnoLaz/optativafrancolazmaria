@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet"  href="css/estilo2.css">
+    <link rel="stylesheet" type="text/css" href="css/estilo.css">
+    <link rel="stylesheet" type="text/css" href="css/estilo1.css">
+    <link rel="stylesheet" type="text/css" href="css/estilo2.css">
+    <title>CONSULTAR</title>
+
+    <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.5.2/firebase-database.js"></script>
+    <script> //*Conexion a la base de datos *//
+    var firebaseConfig = {
+    apiKey: "AIzaSyBl4IYip-4pvQUhb46Km_LdYLv1PLS-Ot8",
+    authDomain: "lolol-24fab.firebaseapp.com",
+    databaseURL: "https://lolol-24fab.firebaseio.com",
+    projectId: "lolol-24fab",
+    storageBucket: "lolol-24fab.appspot.com",
+    messagingSenderId: "266931699628",
+    appId: "1:266931699628:web:f10b7232398b448e"
+  };
+  firebase.initializeApp(firebaseConfig);
+        var database = firebase.database();
+
+    window.addEventListener('load',function(){
+
+        let cedula= document.querySelector('#txtcedula');
+        let nombres= document.querySelector('#txtnombres');
+        let apellidos= document.querySelector('#txtapellidos');
+        let edad= document.querySelector('#txtedad');
+        let actividad= document.querySelector('#txtactividad');
+        let curso= document.querySelector('#txtcurso');
+        let horario= document.querySelector('#txthorario');
+        let correo= document.querySelector('#txtcorreo');
+        let contraseña= document.querySelector('#txtcontraseña');
+        let listado= document.querySelector('#listado');
+
+        
+        document.querySelector('#btnConsultar').addEventListener('click',function(){
+            alert('consultando registro!!!')
+            firebase.database().ref('/usuario').on('value',function(resultado) {
+                html='<table border=15>'
+                    
+                resultado.forEach(function(resul) 
+                {
+                    html+= `<tr><td>${resul.val().cedula} </td>
+                    <td> ${resul.val().nombres}</td> 
+                    <td> ${resul.val().apellidos}</td> 
+                    <td> ${resul.val().curso}</td> 
+                    <td> ${resul.val().actividad}</td> 
+                    
+                    <td> <button class='accion' value=${resul.val().cedula} >Aprobar</button> </td>
+                    <td> <button class='accion' value=${resul.val().cedula} >Rechazar</button></td> 
+                    </tr>` 
+                });      
+                html+='</table>'
+                listado.innerHTML=html
+
+                document.querySelectorAll('.accion').forEach(elemento=>{
+                    elemento.addEventListener('click',function(){
+                        accion(elemento.innerHTML, elemento.value)
+                    })
+                });
+            });
+        });
+        function accion(tipo, valor)
+        {
+            if (tipo=='Rechazar')
+            {
+                firebase.database().ref('/usuario/'+valor).remove().then(p=>{
+                    print('registro ') 
+                });
+            }
+            else
+            {
+                firebase.database().ref('/usuario/'+valor).once('value',function(resultadoi){
+                    let objetoRespuesta= resultadoi.val()
+                    cedula.value=objetoRespuesta.cedula;
+                    nombres.value=objetoRespuesta.nombres;
+                    apellidos.value=objetoRespuesta.apellidos;
+                    edad.value=objetoRespuesta.edad;
+                    actividad.value=objetoRespuesta.actividad;
+                    curso.value=objetoRespuesta.curso;
+                    horario.value=objetoRespuesta.horario;
+                    correo.value=objetoRespuesta.correo;
+                    contraseña.value=objetoRespuesta.contraseña;
+                })
+            }
+        }
+    });
+    </script>
+
+
+</head>
+
+<body>
+
+    <nav class="menu">
+                
+
+        <ul>
+            <li><a href="Apoyoniños.html">Inicio</a></li>
+            <li><a href="acerca.html">Acerca de</a></li>
+            <li><a href="cursos.html">Cursos</a></li>
+            <li><a href="actividades.html">Actividad</a></li>
+            <li><a href="consulta.html">Consulta</a></li>
+            <li><a href="inisiodesesion.html">Inicio Sesion</a></li>
+            
+        </ul>
+
+
+    </nav>
+    <header>
+        <h1>CONSULTAR</h1> 
+        <p>Una vez que presiones el boton consultar se mostrara los niños que se han 
+            registrado en los diferentes cursos y actividades.</p>
+            <p>Los datos de la tabla que se visualizara se presentara del siguiente orden: 
+            Numero de cedula, nombres, apellidos, cursos y actividades.
+            </p>
+    </header>
+    
+    <form class="form-register">
+        <h4>Consulta</h4> 
+                <p>
+                    <div class="container"> 
+                        <button id="btnConsultar" type="button" class="btn">Consultar</button>
+                </div>
+                </p> 
+
+        <div id="listado"></div>
+    
+        </form>
+    
+</body>
+
+
+</html>
+  

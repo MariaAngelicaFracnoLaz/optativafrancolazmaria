@@ -1,0 +1,165 @@
+header{
+    
+    border-style: solid;
+    border: 0px;
+    padding: 5px;
+    text-align: center;
+  }
+
+
+.separar{
+    height: 10px;
+}
+
+.imagen1{
+    width: 60%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    border-style: 0px;
+
+}
+
+
+.main{
+    height: 1200px;
+
+}
+
+img{
+    transition: all 0.5s linear;
+}
+
+img:hover{
+    transform: scale(0.9);
+}
+
+.main img{
+    width: 50%;
+    float: left;
+}
+body{
+  
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    background-color: rgb(189, 234, 241);
+}
+
+/* css del registro*/
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  body {
+    background-image: url('fondo.jpg');
+  }
+
+
+
+
+   /*CSS ACTIVIDADES*/
+
+   body{
+    background: white;
+    padding: 0;
+    margin: 0;
+    font-family: sans-serif;
+    
+  }
+
+  .container{
+    
+    width: 95%;
+    padding: 10px;
+    background: #ddd;
+    margin: 100px auto;
+    display: flex;
+    justify-content:center;
+    top: -70px;
+    
+  }
+
+
+  .movimiento{
+    text-align: center;
+    color: #0a141b;
+    width: 230px;
+    height: 250px;
+    background: rgb(44, 33, 187);
+    float: left;
+    margin: 0px 10px;
+    transition: 1s;
+    border-radius: 5px;
+  }
+
+  .movimiento:hover{
+    transform: scale(1,1);
+    background: rgb(55, 15, 234);
+    box-shadow: 2px 2px 2px #222;
+    z-index: 2;
+  }
+
+  .titulo_cursos{
+    text-align: center;
+    color: black;
+    display: inline-block;
+    position: relative;
+    font-family: 'Dancing Scrip',cursive;
+  }
+
+  .titulo_cursos::after, .titulo_cursos::before{
+    content: '';
+    position: absolute;
+    width: 120px;
+    height: 3pxs;
+    background-color:currentColor;
+    top: 0.7em;
+  }
+  .toto{
+    position: relative;
+    text-align: center;
+    top: 40px;
+   
+  }
+
+  .titulo_servicios::before{
+    left: -140px;
+  }
+  .titulo_servicios::after{
+    right: -140px;
+  }
+
+
+
+  /*CSS IMAGEN*/
+
+  img.iconos{
+    display:  block;
+    margin: 45px auto;
+    
+  }
+
+  .texto_imagenes a{
+    color: #fff;
+    line-height: 25px;
+    letter-spacing: .1em;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+  }
+
+  .movimiento:hover p.texto_imagenes{
+
+    padding-top: 20px;
+  }
+  .movimiento:hover{
+     height: 250px;
+  }
+
+
+
+
